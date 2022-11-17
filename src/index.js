@@ -48,6 +48,7 @@ module.exports = function () {
       if (cacheItem.stale) {
         debug(req.url, 'Using Stale')
         updateInBackground(cacheItem)
+        res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
         return res.end(cacheItem.html)
       } else {
         delete cacheItems[req.url]
